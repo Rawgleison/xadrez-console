@@ -7,10 +7,10 @@
         public int qtdMovimentos { get; set; }
         public Tabuleiro tabuleiro { get; protected set; }
 
-        public Peca(Posicao posicao, Tabuleiro tabuleiro, Cor cor)
+        public Peca(Tabuleiro tabuleiro, Cor cor)
         {
             this.cor = cor;
-            this.posicao = posicao;
+            this.posicao = null;
             this.qtdMovimentos = 0;
             this.tabuleiro = tabuleiro;
         }
