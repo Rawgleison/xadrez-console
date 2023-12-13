@@ -1,15 +1,17 @@
-﻿namespace tabuleiro
+﻿using System.Collections.Generic;
+
+namespace tabuleiro
 {
     class Tabuleiro
     {
-        public int linhas { get; set; }
-        public int colunas { get; set; }
+        public int Linhas { get; set; }
+        public int Colunas { get; set; }
         private Peca[,] pecas;
 
         public Tabuleiro(int linhas, int colunas)
         {
-            this.linhas = linhas;
-            this.colunas = colunas;
+            this.Linhas = linhas;
+            this.Colunas = colunas;
             pecas = new Peca[linhas, colunas];
         }
 
@@ -20,6 +22,10 @@
 
         public Peca peca(Posicao pos)
         {
+            if (!posicaoValida(pos))
+            {
+                return null;
+            }
             return pecas[pos.linha, pos.coluna];
         }
 
@@ -57,7 +63,7 @@
 
         public bool posicaoValida(Posicao pos)
         {
-            return (pos.linha >= 0 && pos.linha < linhas && pos.coluna >= 0 && pos.coluna < colunas);
+            return (pos.linha >= 0 && pos.linha < Linhas && pos.coluna >= 0 && pos.coluna < Colunas);
         }
 
         public void validarPosicao(Posicao pos)
@@ -66,6 +72,19 @@
             {
                 throw new TabuleiroException("Posição inválida!");
             }
+        }
+
+        public List<Posicao> getListPosicoes()
+        {
+            List<Posicao> posList = new List<Posicao>();
+            for (int l = 0; l < Linhas; l++)
+            {
+                for (int c = 0; c < Colunas; c++)
+                {
+                    posList.Add(new Posicao(l, c));
+                }
+            }
+            return posList;
         }
     }
 }
