@@ -1,5 +1,7 @@
 ﻿using System;
 using tabuleiro;
+using xadrez;
+
 namespace xadrez_console
 {
     class Tela
@@ -30,7 +32,7 @@ namespace xadrez_console
 
         public static void imprimirPeca(Peca peca)
         {
-            if(peca.cor == Cor.Branco)
+            if(peca.cor == Cor.Branca)
             {
                 Console.Write(peca);
             }
@@ -41,6 +43,14 @@ namespace xadrez_console
                 Console.Write(peca);
                 Console.ForegroundColor = oldColor;
             }
+        }
+
+        public static PosicaoXadrez lerPosicaoXadrez()
+        {
+            string posXadrez = Console.ReadLine();
+            char coluna = posXadrez[0];
+            int linha = int.Parse("" + posXadrez[1]);
+            return new PosicaoXadrez(coluna, linha);
         }
     }
 }
