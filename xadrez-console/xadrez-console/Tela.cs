@@ -79,6 +79,13 @@ namespace xadrez_console
 
             Console.WriteLine($"Turno: {partida.turno}");
             Console.WriteLine($"Peça a ser jogada: {partida.jogadorAtual}");
+            if (partida.emXeque)
+            {
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("PARTIDA EM XEQUE");
+                Console.ForegroundColor = oldColor;
+            }
 
         }
 
