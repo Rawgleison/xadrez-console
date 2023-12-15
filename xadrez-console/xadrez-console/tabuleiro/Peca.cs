@@ -1,4 +1,6 @@
-﻿namespace tabuleiro
+﻿using System.Collections.Generic;
+
+namespace tabuleiro
 {
     abstract class Peca
     {
@@ -15,10 +17,10 @@
             this.Tabuleiro = tabuleiro;
         }
 
-        public bool podeMover(Posicao pos)
+        public bool podeMover(Posicao pos, bool captura = true)
         {
             Peca p = this.Tabuleiro.peca(pos);
-            return (p == null) || (p.cor != this.cor);
+            return (p == null) || ((p.cor != this.cor) && captura);
         }
 
         public bool podeMoverPara(Posicao destino)
@@ -42,6 +44,26 @@
             }
             return false;
         }
+
+        protected List<Posicao> processamovimentos(int qtdLinha, int qtdColuna, int qtdCasas, bool captura = true)
+        {
+            List<Posicao> posicaos = new List<Posicao>();
+            for (int i = 1; i <= qtdCasas; i++)
+            {
+                Posicao p = new Posicao(this.posicao.linha + (i * qtdLinha), this.posicao.coluna + (i * qtdColuna));
+                if (this.Tabuleiro.posicaoValida(p) && podeMover(p, captura))
+                {
+                    posicaos.Add(p);
+                }
+
+                if (this.Tabuleiro.peca(p) != null)
+                {
+                    break;
+                }
+            }
+            return posicaos;
+        }
+
         public abstract bool[,] MovimentosPossiveis();
     }
 

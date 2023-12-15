@@ -40,6 +40,12 @@ namespace xadrez_console
                         Console.ReadKey();
                     }
                 }
+
+                Console.Clear();
+                Console.WriteLine("********** XEQUE MATE!!!!*************");
+                Tela.imprimirTabuleiro(partida.tabuleiro);
+                Console.WriteLine();
+                Tela.imprimirPartida(partida);
             }
             catch (TabuleiroException e)
             {

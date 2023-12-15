@@ -1,4 +1,5 @@
-﻿using tabuleiro;
+﻿using System.Collections.Generic;
+using tabuleiro;
 namespace xadrez
 {
     class Torre : Peca
@@ -9,65 +10,19 @@ namespace xadrez
 
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] mat = new bool[this.Tabuleiro.Linhas,this.Tabuleiro.Colunas];
-
+            bool[,] mat = new bool[this.Tabuleiro.Linhas, this.Tabuleiro.Colunas];
+            List<Posicao> posicaos = new List<Posicao>();
 
             //Para Cima
-            for (int l = 1; l <= this.Tabuleiro.Linhas; l++)
-            {
-                Posicao p = new Posicao(this.posicao.linha + l, this.posicao.coluna);
-                if (this.Tabuleiro.posicaoValida(p) && podeMover(p))
-                {
-                    mat[p.linha, p.coluna] = true;
-                }
-
-                if (this.Tabuleiro.peca(p) != null)
-                {
-                    break;
-                }
-            }
-            //Para baixo
-            for (int l = 1; l <= this.Tabuleiro.Linhas; l++)
-            {
-                Posicao p = new Posicao(this.posicao.linha - l, this.posicao.coluna);
-                if (this.Tabuleiro.posicaoValida(p) && podeMover(p))
-                {
-                    mat[p.linha, p.coluna] = true;
-                }
-
-                if (this.Tabuleiro.peca(p) != null)
-                {
-                    break;
-                }
-            }
+            posicaos.AddRange(processamovimentos(1, 0, this.Tabuleiro.Colunas));
+            //Para Baixo
+            posicaos.AddRange(processamovimentos(-1, 0, this.Tabuleiro.Colunas));
             //Para Direita
-            for (int c = 1; c <= this.Tabuleiro.Colunas; c++)
-            {
-                Posicao p = new Posicao(this.posicao.linha, this.posicao.coluna + c);
-                if (this.Tabuleiro.posicaoValida(p) && podeMover(p))
-                {
-                    mat[p.linha, p.coluna] = true;
-                }
-
-                if (this.Tabuleiro.peca(p) != null)
-                {
-                    break;
-                }
-            }
+            posicaos.AddRange(processamovimentos(0, 1, this.Tabuleiro.Colunas));
             //Para Esquerda
-            for (int c = 1; c <= this.Tabuleiro.Colunas; c++)
-            {
-                Posicao p = new Posicao(this.posicao.linha, this.posicao.coluna - c);
-                if (this.Tabuleiro.posicaoValida(p) && podeMover(p))
-                {
-                    mat[p.linha, p.coluna] = true;
-                }
+            posicaos.AddRange(processamovimentos(0, -1, this.Tabuleiro.Colunas));
 
-                if (this.Tabuleiro.peca(p) != null)
-                {
-                    break;
-                }
-            }
+            posicaos.ForEach(p => mat[p.linha, p.coluna] = true);
 
             return mat;
         }

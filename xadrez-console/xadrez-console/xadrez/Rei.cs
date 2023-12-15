@@ -12,19 +12,27 @@ namespace xadrez
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] mat = new bool[this.Tabuleiro.Linhas, this.Tabuleiro.Colunas];
-            int linha = this.posicao.linha;
-            int col = this.posicao.coluna;
-            List<Posicao> posList = this.Tabuleiro.getListPosicoes();
+            List<Posicao> posicaos = new List<Posicao>();
 
-            var posListPerm = posList.FindAll(p => (Math.Abs(p.linha - linha) < 2) && (Math.Abs(p.coluna - col) < 2));
+            //Para Cima
+            posicaos.AddRange(processamovimentos(1, 0, 1));
+            //Para Cima-Esq
+            posicaos.AddRange(processamovimentos(1, 1, 1));
+            //Para Esquerda
+            posicaos.AddRange(processamovimentos(0, 1, 1));
+            //Para Baixo-Esq
+            posicaos.AddRange(processamovimentos(-1, 1, 1));
+            //Para Baixo
+            posicaos.AddRange(processamovimentos(-1, 0, 1));
+            //Para Baixo-Dir
+            posicaos.AddRange(processamovimentos(-1, -1, 1));
+            //Para Direita
+            posicaos.AddRange(processamovimentos(0, -1, 1));
+            //Para Cima-Dir
+            posicaos.AddRange(processamovimentos(1, -1, 1));
 
-            posListPerm.ForEach(p =>
-            {
-                if(this.Tabuleiro.posicaoValida(p) && podeMover(p))
-                {
-                    mat[p.linha, p.coluna] = true;
-                }
-            });
+            posicaos.ForEach(p => mat[p.linha, p.coluna] = true);
+
             return mat;
         }
 

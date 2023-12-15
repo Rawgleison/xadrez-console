@@ -69,12 +69,12 @@ namespace xadrez_console
         {
             Console.WriteLine("Peças Capituradas");
             Console.Write("Brancas: ");
-            imprimirList(partida.getPegasCapituradas(Cor.Branca));
+            imprimirList(partida.getPecasCapituradas(Cor.Branca));
 
             Console.Write("Pretas: ");
             ConsoleColor oldCor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
-            imprimirList(partida.getPegasCapituradas(Cor.Preto));
+            imprimirList(partida.getPecasCapituradas(Cor.Preto));
             Console.ForegroundColor = oldCor;
 
             Console.WriteLine($"Turno: {partida.turno}");
